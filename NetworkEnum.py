@@ -16,17 +16,30 @@ def EnumHosts():
     while(True):
         fileName = input("Enter the file name: ")
         if(not os.path.exists(fileName)):
-            os.system(f"nmap -sN {newIP} -oG {fileName}.txt")
+            os.system(f"nmap -sN {newIP} -oN {fileName}")
             break
         else:
             print("The file name already exists, please choose another")
 
 def EnumAllPorts(ip):
-    os.system(f"echo '{ip}' > target_{ip}.txt")
-    os.system(f"nmap -p- -iL target_{ip}.txt")
+    os.system(f"echo '{ip}' > target")
+
+    while(True):
+        fileName = input("Enter the file name: ")
+        if(not os.path.exists(fileName)):
+            os.system(f"nmap -p- -iL target -oN {fileName}")
+            break
+        else:
+            print("The file name already exists, please choose another")   
 
 def EnumServices(ip):
-    os.system(f"nmap -p- -sV -iL target_{ip}.txt")
+    while(True):
+        fileName = input("Enter the file name: ")
+        if(not os.path.exists(fileName)):
+            os.system(f"nmap -p- -sV -iL target --open -oN {fileName}")
+            break
+        else:
+            print("The file name already exists, please choose another")
 
 def Menu():
     print("1) Hosts Enumeration")
